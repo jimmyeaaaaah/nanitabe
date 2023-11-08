@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import FoodList from "./components/FoodIndex";
+import FoodForm from "./components/FoodForm";
+import { FoodProps } from "./entity/entity";
 
 function App() {
+  const [foods, setFoods] = useState<FoodProps[]>([]);
+
+  const addFood = (newFood: FoodProps) => {
+    setFoods([...foods, newFood]);
+  };
+
+  const deleteFood = (index: number) => {
+    const updatedFoods = foods.filter((_, i) => i !== index);
+    setFoods(updatedFoods);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>冷蔵庫の中身</h1>
+      <FoodList foods={foods} onDeleteFood={deleteFood} />
+      <FoodForm onAddFood={addFood} />
     </div>
   );
 }
