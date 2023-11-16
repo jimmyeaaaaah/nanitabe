@@ -21,11 +21,14 @@ function App() {
   };
 
   const deleteFood = async (id: number) => {
-    console.log(id);
     try {
       await fetch(`http://localhost:8080/api/foods/${id}`, {
         method: "DELETE",
       });
+
+      const result = await fetch("http://localhost:8080/api/foods");
+      const jsonData = await result.json();
+      setFoods(jsonData);
     } catch (error) {
       console.error("Error deleting food: ", error);
     }
