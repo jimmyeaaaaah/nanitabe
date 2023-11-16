@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FoodList from "./components/FoodIndex";
 import FoodForm from "./components/FoodForm";
 import { FoodProps } from "./entity/entity";
+// import { getFoods } from "./api/foods";
 
 function App() {
   const [foods, setFoods] = useState<FoodProps[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch("http://localhost:8080/api/foods");
+      const jsonData = await result.json();
+      setFoods(jsonData);
+    };
+    fetchData();
+  }, []);
 
   const addFood = (newFood: FoodProps) => {
     setFoods([...foods, newFood]);
   };
 
-  const deleteFood = (index: number) => {
-    const updatedFoods = foods.filter((_, i) => i !== index);
-    setFoods(updatedFoods);
+  const deleteFood = async (id: number) => {
+    console.log(id);
+    try {
+      await fetch(`http://localhost:8080/api/foods/${id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Error deleting food: ", error);
+    }
   };
+
   return (
     <div>
       <h1>冷蔵庫の中身</h1>

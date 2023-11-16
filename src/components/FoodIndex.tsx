@@ -3,7 +3,7 @@ import { FoodProps } from "../entity/entity";
 
 interface FoodListProps {
   foods: FoodProps[];
-  onDeleteFood: (index: number) => void;
+  onDeleteFood: (id: number) => void;
 }
 
 const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
@@ -26,10 +26,10 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
         <div>
           <h2>野菜</h2>
           <ul>
-            {groupedFoods["vegeatable"].map((food, index) => (
+            {groupedFoods["vegetable"].map((food, index) => (
               <li key={index}>
                 {food.name} ({food.amount} {food.unit})
-                <button onClick={() => onDeleteFood(index)}>削除</button>
+                <button onClick={() => onDeleteFood(food.id)}>削除</button>
               </li>
             ))}
           </ul>
@@ -47,7 +47,7 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
             {groupedFoods["meet"].map((food, index) => (
               <li key={index}>
                 {food.name} ({food.amount} {food.unit})
-                <button onClick={() => onDeleteFood(index)}>削除</button>
+                <button onClick={() => onDeleteFood(food.id)}>削除</button>
               </li>
             ))}
           </ul>
@@ -58,14 +58,14 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
           <p>食材がありません</p>
         </div>
       )}
-      {groupedFoods["meet"].length > 0 ? (
+      {groupedFoods["other"].length > 0 ? (
         <div>
           <h2>その他</h2>
           <ul>
             {groupedFoods["other"].map((food, index) => (
               <li key={index}>
                 {food.name} ({food.amount} {food.unit})
-                <button onClick={() => onDeleteFood(index)}>削除</button>
+                <button onClick={() => onDeleteFood(food.id)}>削除</button>
               </li>
             ))}
           </ul>
