@@ -15,6 +15,7 @@ const FoodForm: React.FC<FoodFormProps> = ({ onAddFood }) => {
   });
 
   const handleAddFood = () => {
+    console.log(newFood);
     if (newFood.name) {
       // onAddFoodの関数は、App.tsx内で定義されFoodFormを呼び出すときに渡されてる
       onAddFood(newFood);
@@ -24,7 +25,7 @@ const FoodForm: React.FC<FoodFormProps> = ({ onAddFood }) => {
         type: "",
         name: "",
         amount: 0,
-        unit: "",
+        unit: "piece",
       });
     }
   };
@@ -35,7 +36,6 @@ const FoodForm: React.FC<FoodFormProps> = ({ onAddFood }) => {
         value={newFood.type}
         onChange={(e) => {
           setNewFood({ ...newFood, type: e.target.value });
-          console.log(newFood);
         }}
       >
         <option value="vegetable">野菜</option>

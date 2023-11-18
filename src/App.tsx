@@ -15,9 +15,24 @@ function App() {
     };
     fetchData();
   }, []);
+  console.log(foods);
 
-  const addFood = (newFood: FoodProps) => {
-    setFoods([...foods, newFood]);
+  const addFood = async (newFood: FoodProps) => {
+    try {
+      await fetch(`http://localhost:8080/api/foods`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFood),
+      });
+
+      const result = await fetch("http://localhost:8080/api/foods");
+      const jsonData = await result.json();
+      setFoods(jsonData);
+    } catch (error) {
+      console.error("Error adding food:", error);
+    }
   };
 
   const deleteFood = async (id: number) => {

@@ -12,13 +12,15 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
     meet: [],
     other: [],
   };
-  foods.forEach((food) => {
-    if (groupedFoods[food.type]) {
-      groupedFoods[food.type].push(food);
-    } else {
-      groupedFoods["other"].push(food); // 不明な食材タイプの場合、"other" エリアに追加
-    }
-  });
+  if (foods) {
+    foods.forEach((food) => {
+      if (groupedFoods[food.type]) {
+        groupedFoods[food.type].push(food);
+      } else {
+        groupedFoods["other"].push(food); // 不明な食材タイプの場合、"other" エリアに追加
+      }
+    });
+  }
 
   return (
     <div>
@@ -28,7 +30,7 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
           <ul>
             {groupedFoods["vegetable"].map((food, index) => (
               <li key={index}>
-                {food.name} ({food.amount} {food.unit})
+                {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
                 <button onClick={() => onDeleteFood(food.id)}>削除</button>
               </li>
             ))}
@@ -46,7 +48,7 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
           <ul>
             {groupedFoods["meet"].map((food, index) => (
               <li key={index}>
-                {food.name} ({food.amount} {food.unit})
+                {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
                 <button onClick={() => onDeleteFood(food.id)}>削除</button>
               </li>
             ))}
@@ -64,7 +66,7 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
           <ul>
             {groupedFoods["other"].map((food, index) => (
               <li key={index}>
-                {food.name} ({food.amount} {food.unit})
+                {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
                 <button onClick={() => onDeleteFood(food.id)}>削除</button>
               </li>
             ))}
