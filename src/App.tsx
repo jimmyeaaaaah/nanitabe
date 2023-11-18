@@ -2,58 +2,46 @@ import React, { useEffect, useState } from "react";
 import FoodList from "./components/FoodIndex";
 import FoodForm from "./components/FoodForm";
 import { FoodProps } from "./entity/entity";
-// import { getFoods } from "./api/foods";
+import { fetchFoods, addFood, deleteFood } from "./api/foods";
 
 function App() {
   const [foods, setFoods] = useState<FoodProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch("http://localhost:8080/api/foods");
-      const jsonData = await result.json();
-      setFoods(jsonData);
+      try {
+        const jsonData = await fetchFoods();
+        setFoods(jsonData);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchData();
   }, []);
-  console.log(foods);
 
-  const addFood = async (newFood: FoodProps) => {
+  const handleAddFood = async (newFood: FoodProps) => {
     try {
-      await fetch(`http://localhost:8080/api/foods`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newFood),
-      });
-
-      const result = await fetch("http://localhost:8080/api/foods");
-      const jsonData = await result.json();
+      const jsonData = await addFood(newFood);
       setFoods(jsonData);
     } catch (error) {
-      console.error("Error adding food:", error);
+      console.error(error);
     }
   };
 
-  const deleteFood = async (id: number) => {
+  const handleDeleteFood = async (id: number) => {
     try {
-      await fetch(`http://localhost:8080/api/foods/${id}`, {
-        method: "DELETE",
-      });
-
-      const result = await fetch("http://localhost:8080/api/foods");
-      const jsonData = await result.json();
+      const jsonData = await deleteFood(id);
       setFoods(jsonData);
     } catch (error) {
-      console.error("Error deleting food: ", error);
+      console.error(error);
     }
   };
 
   return (
     <div>
       <h1>冷蔵庫の中身</h1>
-      <FoodList foods={foods} onDeleteFood={deleteFood} />
-      <FoodForm onAddFood={addFood} />
+      <FoodList foods={foods} onDeleteFood={handleDeleteFood} />
+      <FoodForm onAddFood={handleAddFood} />
     </div>
   );
 }

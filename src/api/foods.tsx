@@ -1,25 +1,41 @@
 import { FoodProps } from "../entity/entity";
 
-export function getFoods() {
-  return fetch("http://localhost:8080/api/foods")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
-      }
-      return response.json() as Promise<FoodProps[]>;
-    })
-    .then((data) => {
-        const foods: FoodProps[] = data.map((item: FoodProps) => ({
-            id: item.id,
-            type: item.type,
-            name: item.name,
-            amount: item.amount,
-            unit: item.unit,
-        }));
-        return foods;
-    })
-    .catch((error) => {
-      console.error("Error fetching data: ", error);
-      return [];
+export const addFood = async (newFood: FoodProps) => {
+  try {
+    await fetch(`http://localhost:8080/api/foods`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newFood),
     });
+
+    return await fetchFoods();
+  } catch (error) {
+    console.error("Error adding food:", error);
+    throw error;
+  }
+};
+
+export const deleteFood = async (id: number) => {
+  try {
+    await fetch(`http://localhost:8080/api/foods/${id}`, {
+      method: "DELETE",
+    });
+
+    return await fetchFoods();
+  } catch (error) {
+    console.error("Error deleting food: ", error);
+    throw error;
+  }
+};
+
+export const fetchFoods = async () => {
+  try {
+    const result = await fetch("http://localhost:8080/api/foods")
+    return await result.json();
+  } catch (error){
+    console.error("Error fetching foods:", error);
+    throw error
+  }
 }
