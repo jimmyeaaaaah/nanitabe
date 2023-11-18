@@ -1,9 +1,43 @@
 package db
 
 import (
+	"fmt"
+
 	"github.com/jimmyeaaaaah/nanitabe/go/entities"
 	"github.com/jimmyeaaaaah/nanitabe/go/utils"
 )
+
+func UpsertFood(food entities.Food) (int64, error) {
+	db, err := utils.OpenMySQL()
+	if err != nil {
+		return 0, err
+	}
+	fmt.Print(food)
+	if food.ID == 0 {
+		fmt.Print("id0")
+		query := "INSERT INTO foods (type, name, amount, unit) VALUES (?, ?, ?, ?)"
+		result, err := db.Exec(query, food.Type, food.Name, food.Amount, food.Unit)
+		fmt.Print(err)
+		if err != nil {
+			return 0, err
+		}
+		fmt.Print(result)
+		id, err := result.LastInsertId()
+		if err != nil {
+			return 0, err
+		}
+		fmt.Print(id)
+		return id, nil
+	}else{
+		fmt.Print(food.ID)
+		query := "UPDATE foods SET type=?, name=?, amount=?, unit=? WHERE id=?"
+		_, err = db.Exec(query, food.Type, food.Name, food.Amount, food.Unit, food.ID)
+		if err != nil {
+			return 0, err
+		}
+		return food.ID, nil
+	}
+}
 
 func DeleteFood(id int) error {
 	db, err := utils.OpenMySQL()
@@ -52,3 +86,4 @@ func SelectAllFoods() ([]entities.Food, error) {
 	}
 	return foods, nil
 }
+

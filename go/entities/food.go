@@ -1,7 +1,7 @@
 package entities
 
 type Food struct {
-	ID     int    `json:"id"`
+	ID     int64    `json:"id"`
 	Type   string `json:"type"`
 	Name   string `json:"name"`
 	Amount int    `json:"amount"`

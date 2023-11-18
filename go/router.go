@@ -19,7 +19,16 @@ func main(){
 	handler := c.Handler(r)
 	// 第一引数で指定されたパスに対するリクエストが到着した際に
 	// 実行される関数が第二引数
-	r.HandleFunc("/api/foods", controllers.GetFoods).Methods("GET")
+	r.HandleFunc("/api/foods", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			controllers.GetFoods(w, r)
+		case http.MethodPost:
+			controllers.PostFood(w, r)
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
 	r.HandleFunc("/api/foods/{id:[0-9]+}", controllers.DeleteFood).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }

@@ -1,5 +1,4 @@
 package db
-
 import (
 	"github.com/jimmyeaaaaah/nanitabe/go/utils"
 )
@@ -25,8 +24,8 @@ func CreateFoodTable() error {
 	}
 
 	createTable := `
-		CREATE TABLE IF NOT EXISTS sample (
-			id INT PRIMARY KEY,
+		CREATE TABLE IF NOT EXISTS foods (
+			id INT AUTO_INCREMENT PRIMARY KEY,
 			type VARCHAR(20),
 			name VARCHAR(50),
 			amount INT,
