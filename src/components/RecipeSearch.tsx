@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RecipeSearchConditionProps } from "../entity/entity";
 
 interface RecipeSearchProps {
-  ingredients: string[]
+  ingredients: string[];
   onSetRecipeSearchCondition: (
     RecipeSearchCondition: RecipeSearchConditionProps
   ) => void;
@@ -17,11 +17,21 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
     servings: 2,
   };
   const [recipeSearchCondition, setRecipeSearchCondition] =
-    useState<RecipeSearchConditionProps>({
-      ...initialRecipeSearchCondition,
-      ingredients: ingredients,
-    });
+    useState<RecipeSearchConditionProps>(initialRecipeSearchCondition);
   const [newIngredient, setNewIngredient] = useState<string>("");
+
+  useEffect(() => {
+    setRecipeSearchCondition((prevCondition) => {
+      const ingredientsSet = new Set([
+        ...prevCondition.ingredients,
+        ...ingredients,
+      ]);
+      return {
+        ...prevCondition,
+        ingredients: Array.from(ingredientsSet),
+      };
+    });
+  }, [ingredients]);
 
   const handleAddIngredient = () => {
     setRecipeSearchCondition((prevCondition) => ({
