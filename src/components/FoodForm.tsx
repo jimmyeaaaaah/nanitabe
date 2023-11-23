@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FoodProps } from "../entity/entity";
+import "../styles/FoodForm.css";
 
 interface FoodFormProps {
   onAddFood: (newFood: FoodProps) => void;
@@ -30,7 +31,7 @@ const FoodForm: React.FC<FoodFormProps> = ({ onAddFood }) => {
   };
 
   return (
-    <div>
+    <div className="food-form">
       <select
         value={newFood.type}
         onChange={(e) => {

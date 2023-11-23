@@ -1,0 +1,27 @@
+/* FoodList.css */
+
+/* 全体のスタイル */
+.food-list {
+  margin: 20px;
+}
+
+/* カテゴリごとのスタイル */
+.category {
+  margin-top: 20px;
+}
+
+/* 食材リストのスタイル */
+.food-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.food-list li {
+  margin-bottom: 10px;
+}
+
+/* ボタンのスタイル */
+.food-list button {
+  margin-left: 10px;
+  cursor: pointer;
+}

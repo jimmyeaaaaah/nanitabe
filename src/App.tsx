@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import FoodList from "./components/FoodIndex";
+import FoodList from "./components/FoodList";
 import FoodForm from "./components/FoodForm";
-import RecipeList from "./components/RecipeIndex";
+import RecipeList from "./components/RecipeList";
 import RecipeSearch from "./components/RecipeSearch";
 import { FoodProps, RecipeSearchConditionProps } from "./entity/entity";
 import { fetchFoods, addFood, deleteFood, fetchRecipes } from "./api/foods";
+import './styles/App.css'
 
 function App() {
   const [foods, setFoods] = useState<FoodProps[]>([]);
@@ -59,15 +60,15 @@ function App() {
 
   return (
     <div>
-      <h1>冷蔵庫の中身</h1>
+      <h2>冷蔵庫の中身</h2>
       <FoodList
         foods={foods}
         onDeleteFood={handleDeleteFood}
         onAddIngredient={handleAddIngredient}
       />
-      <h2>冷蔵庫に食材を追加</h2>
+      <h3>冷蔵庫に食材を追加</h3>
       <FoodForm onAddFood={handleAddFood} />
-      <h2>レシピを検索</h2>
+      <h3>レシピを検索</h3>
       <RecipeSearch
         ingredients={ingredients}
         onSetRecipeSearchCondition={handleRecipeSearch}

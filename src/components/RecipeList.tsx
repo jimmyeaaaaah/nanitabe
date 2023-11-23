@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/RecipeList.css"
 
 interface RecipeListProps {
   recipes: string[];
@@ -6,8 +7,8 @@ interface RecipeListProps {
 
 const RecipeList: React.FC<RecipeListProps> = ({ recipes }) => {
   return (
-    <div>
-      <h2>レシピ一覧</h2>
+    <div className="recipe-list">
+      <h3>レシピ一覧</h3>
       <ul>
         {recipes.map((recipe, index) => (
           <li key={index}>

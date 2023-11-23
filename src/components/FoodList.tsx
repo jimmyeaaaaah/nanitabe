@@ -1,13 +1,18 @@
 import React from "react";
 import { FoodProps } from "../entity/entity";
+import "../styles/FoodList.css";
 
 interface FoodListProps {
   foods: FoodProps[];
   onDeleteFood: (id: number) => void;
-  onAddIngredient: (ingredient: string) => void
+  onAddIngredient: (ingredient: string) => void;
 }
 
-const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood, onAddIngredient }) => {
+const FoodList: React.FC<FoodListProps> = ({
+  foods,
+  onDeleteFood,
+  onAddIngredient,
+}) => {
   const groupedFoods: { [key: string]: FoodProps[] } = {
     vegetable: [],
     meet: [],
@@ -24,10 +29,10 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood, onAddIngredien
   }
 
   return (
-    <div>
+    <div className="food-list">
       {groupedFoods["vegetable"].length > 0 ? (
         <div>
-          <h2>野菜</h2>
+          <h3>野菜</h3>
           <ul>
             {groupedFoods["vegetable"].map((food, index) => (
               <li key={index}>
@@ -42,13 +47,13 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood, onAddIngredien
         </div>
       ) : (
         <div>
-          <h2>野菜</h2>
+          <h3>野菜</h3>
           <p>食材がありません</p>
         </div>
       )}
       {groupedFoods["meet"].length > 0 ? (
         <div>
-          <h2>肉</h2>
+          <h3>肉</h3>
           <ul>
             {groupedFoods["meet"].map((food, index) => (
               <li key={index}>
@@ -63,13 +68,13 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood, onAddIngredien
         </div>
       ) : (
         <div>
-          <h2>肉</h2>
+          <h3>肉</h3>
           <p>食材がありません</p>
         </div>
       )}
       {groupedFoods["other"].length > 0 ? (
         <div>
-          <h2>その他</h2>
+          <h3>その他</h3>
           <ul>
             {groupedFoods["other"].map((food, index) => (
               <li key={index}>
@@ -84,7 +89,7 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood, onAddIngredien
         </div>
       ) : (
         <div>
-          <h2>その他</h2>
+          <h3>その他</h3>
           <p>食材がありません</p>
         </div>
       )}

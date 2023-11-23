@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RecipeSearchConditionProps } from "../entity/entity";
+import "../styles/RecipeSearch.css"
 
 interface RecipeSearchProps {
   ingredients: string[];
@@ -50,7 +51,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
   };
 
   return (
-    <div>
+    <div className="recipe-search">
       <div>
         <div>
           <input
