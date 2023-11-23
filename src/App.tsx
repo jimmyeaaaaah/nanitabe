@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import FoodList from "./components/FoodIndex";
 import FoodForm from "./components/FoodForm";
+import RecipeList from "./components/RecipeIndex"
 import RecipeSearch from "./components/RecipeSearch";
 import { FoodProps, RecipeSearchConditionProps } from "./entity/entity";
-import { fetchFoods, addFood, deleteFood } from "./api/foods";
+import { fetchFoods, addFood, deleteFood, fetchRecipes } from "./api/foods";
 
 function App() {
   const [foods, setFoods] = useState<FoodProps[]>([]);
-  const [searchResult, setSearchResult] = useState<string[]>([]);
+  const [recipes, setRecipes] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,28 +39,15 @@ function App() {
       console.error(error);
     }
   };
-
+  
   const handleRecipeSearch = async (
     recipeSearchCondition: RecipeSearchConditionProps
   ) => {
     try {
-      // queryParamsを通してingredientsをURLに組み込む
-      const queryParams = new URLSearchParams({
-        keyword: recipeSearchCondition.ingredients.join(","),
-      });
-      const response = await fetch(
-        `http://localhost:5000/api/search?${queryParams.toString()}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setSearchResult(data.urls);
-      console.log(searchResult);
+      const recipeURLs = await fetchRecipes(recipeSearchCondition)
+      setRecipes(recipeURLs)
     } catch (error) {
-      console.error("Error:", error);
+      console.error(error);
     }
   };
 
@@ -71,6 +59,7 @@ function App() {
       <FoodForm onAddFood={handleAddFood} />
       <h2>レシピを検索</h2>
       <RecipeSearch onSetRecipeSearchCondition={handleRecipeSearch} />
+      <RecipeList recipes={recipes} />
     </div>
   );
 }
