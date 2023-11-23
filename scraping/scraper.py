@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+import re
+import json
 
 def get_search_result(keywords):
-    print(keywords)
     recipe_urls = []
     base_url = 'https://www.kurashiru.com/search'
     params = {'query': ' '.join(keywords)}

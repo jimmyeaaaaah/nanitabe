@@ -10,11 +10,12 @@ interface RecipeSearchProps {
 const RecipeSearch: React.FC<RecipeSearchProps> = ({
   onSetRecipeSearchCondition,
 }) => {
+  const initialRecipeSearchCondition: RecipeSearchConditionProps = {
+    ingredients: [],
+    servings: 2,
+  };
   const [recipeSearchCondition, setRecipeSearchCondition] =
-    useState<RecipeSearchConditionProps>({
-      ingredients: [],
-      servings: 0,
-    });
+    useState<RecipeSearchConditionProps>(initialRecipeSearchCondition);
   const [newIngredient, setNewIngredient] = useState<string>("");
 
   const handleAddIngredient = () => {
@@ -27,6 +28,10 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
 
   const handleAddRecipeSearchCondition = () => {
     onSetRecipeSearchCondition(recipeSearchCondition);
+  };
+
+  const handleClearRecipeSearchCondition = () => {
+    setRecipeSearchCondition(initialRecipeSearchCondition);
   };
 
   return (
@@ -55,6 +60,9 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
           <span> 人前</span>
           <button onClick={handleAddRecipeSearchCondition}>
             この条件で検索
+          </button>
+          <button onClick={handleClearRecipeSearchCondition}>
+            条件をクリア
           </button>
         </div>
       </div>

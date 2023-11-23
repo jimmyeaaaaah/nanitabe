@@ -7,12 +7,7 @@ import { fetchFoods, addFood, deleteFood } from "./api/foods";
 
 function App() {
   const [foods, setFoods] = useState<FoodProps[]>([]);
-  const [searchResult, setSearchResult] = useState([]);
-  const [recipeSearchCondition, setRecipeSearchCondition] =
-    useState<RecipeSearchConditionProps>({
-      ingredients: [],
-      servings: 0,
-    });
+  const [searchResult, setSearchResult] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,26 +39,27 @@ function App() {
     }
   };
 
-  const handleRecipeSearch = async () => {
+  const handleRecipeSearch = async (
+    recipeSearchCondition: RecipeSearchConditionProps
+  ) => {
     try {
       // queryParamsを通してingredientsをURLに組み込む
       const queryParams = new URLSearchParams({
-        keyword: recipeSearchCondition.ingredients.join(','),
+        keyword: recipeSearchCondition.ingredients.join(","),
       });
-      console.log(queryParams)
-      console.log(`http://localhost:5000/api/search?${queryParams.toString()}`)
       const response = await fetch(
         `http://localhost:5000/api/search?${queryParams.toString()}`
       );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok')
+        throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
       setSearchResult(data.urls);
-    } catch(error){
-      console.error('Error:', error);
+      console.log(searchResult);
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 

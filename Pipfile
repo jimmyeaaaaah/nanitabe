@@ -8,6 +8,7 @@ flask = "*"
 scraper = "*"
 requests = "*"
 bs4 = "*"
+flask-cors = "*"
 
 [dev-packages]
 ipykernel = "*"
