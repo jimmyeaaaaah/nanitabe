@@ -5,3 +5,8 @@ export interface FoodProps {
   amount: number; // 量: 1個, 200g
   unit: string; // 量の単位: 個, g
 }
+
+export interface RecipeSearchConditionProps {
+  ingredients: string[];
+  servings: number;
+}

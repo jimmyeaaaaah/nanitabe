@@ -15,7 +15,6 @@ const FoodForm: React.FC<FoodFormProps> = ({ onAddFood }) => {
   });
 
   const handleAddFood = () => {
-    console.log(newFood);
     if (newFood.name) {
       // onAddFoodの関数は、App.tsx内で定義されFoodFormを呼び出すときに渡されてる
       onAddFood(newFood);
