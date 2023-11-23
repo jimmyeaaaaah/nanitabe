@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import FoodList from "./components/FoodIndex";
 import FoodForm from "./components/FoodForm";
-import RecipeList from "./components/RecipeIndex"
+import RecipeList from "./components/RecipeIndex";
 import RecipeSearch from "./components/RecipeSearch";
 import { FoodProps, RecipeSearchConditionProps } from "./entity/entity";
 import { fetchFoods, addFood, deleteFood, fetchRecipes } from "./api/foods";
+import { RecipeSearchProvider } from "./context";
 
 function App() {
   const [foods, setFoods] = useState<FoodProps[]>([]);
+  const [ingredients, setIngredients] useState<string[]>([]);
   const [recipes, setRecipes] = useState<string[]>([]);
 
   useEffect(() => {
@@ -39,26 +41,34 @@ function App() {
       console.error(error);
     }
   };
-  
+
   const handleRecipeSearch = async (
     recipeSearchCondition: RecipeSearchConditionProps
   ) => {
     try {
-      const recipeURLs = await fetchRecipes(recipeSearchCondition)
-      setRecipes(recipeURLs)
+      const recipeURLs = await fetchRecipes(recipeSearchCondition);
+      setRecipes(recipeURLs);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleAddIngredient = async (ingredient: string) => {
+    setIngredients((prevIngredients) => [...prevIngredients, ingredient]);
+  };
+
   return (
     <div>
       <h1>冷蔵庫の中身</h1>
-      <FoodList foods={foods} onDeleteFood={handleDeleteFood} />
+      <FoodList
+        foods={foods}
+        onDeleteFood={handleDeleteFood}
+        onAddIngredient={handleAddIngredient}
+      />
       <h2>冷蔵庫に食材を追加</h2>
       <FoodForm onAddFood={handleAddFood} />
       <h2>レシピを検索</h2>
-      <RecipeSearch onSetRecipeSearchCondition={handleRecipeSearch} />
+      <RecipeSearch ingredients={ingredients} onSetRecipeSearchCondition={handleRecipeSearch} />
       <RecipeList recipes={recipes} />
     </div>
   );

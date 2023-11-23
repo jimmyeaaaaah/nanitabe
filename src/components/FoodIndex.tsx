@@ -4,9 +4,10 @@ import { FoodProps } from "../entity/entity";
 interface FoodListProps {
   foods: FoodProps[];
   onDeleteFood: (id: number) => void;
+  onAddIngredient: (ingredient: string) => void
 }
 
-const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
+const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood, onAddIngredient }) => {
   const groupedFoods: { [key: string]: FoodProps[] } = {
     vegetable: [],
     meet: [],
@@ -32,6 +33,9 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
               <li key={index}>
                 {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
                 <button onClick={() => onDeleteFood(food.id)}>削除</button>
+                <button onClick={() => onAddIngredient(food.name)}>
+                  この食材を使う
+                </button>
               </li>
             ))}
           </ul>
@@ -50,6 +54,9 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
               <li key={index}>
                 {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
                 <button onClick={() => onDeleteFood(food.id)}>削除</button>
+                <button onClick={() => onAddIngredient(food.name)}>
+                  この食材を使う
+                </button>
               </li>
             ))}
           </ul>
@@ -68,6 +75,9 @@ const FoodList: React.FC<FoodListProps> = ({ foods, onDeleteFood }) => {
               <li key={index}>
                 {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
                 <button onClick={() => onDeleteFood(food.id)}>削除</button>
+                <button onClick={() => onAddIngredient(food.name)}>
+                  この食材を使う
+                </button>
               </li>
             ))}
           </ul>
