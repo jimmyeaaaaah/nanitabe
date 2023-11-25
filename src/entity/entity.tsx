@@ -10,3 +10,32 @@ export interface RecipeSearchConditionProps {
   ingredients: string[];
   servings: number;
 }
+
+export interface IngredientProps {
+  ingredient_id: number;
+  ingredient_title: string;
+  ingredient_name: string;
+  ingredient_amount: string;
+}
+
+export interface InstructionProps {
+  index: number;
+  body: string;
+}
+
+export interface RecipeProps {
+  recipe_id: string;
+  recipe_name: string;
+  serving: number;
+  calorie: number | null;
+  cooking_time: number;
+  expense: number;
+  img_large_url: string;
+  img_normal_url: string;
+  img_small_url: string;
+  ingredient_list: IngredientProps[];
+  instruction_list: InstructionProps[];
+  introduction: string;
+  rating_count: number;
+  video_url: string;
+}

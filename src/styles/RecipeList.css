@@ -1,23 +1,33 @@
-/* RecipeList.css */
-
 .recipe-list {
   margin-top: 20px;
 }
 
-.recipe-list ul {
-  list-style-type: none;
-  padding: 0;
+.recipe-columns {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.recipe-list li {
+.recipe-item {
+  width: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.recipe-item h5 {
+  height: 30px;
   margin-bottom: 10px;
 }
 
-.recipe-list a {
-  text-decoration: none;
-  color: #333;
+.recipe-item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-.recipe-list a:hover {
-  color: #0066cc;
+.recipe-item p {
+  margin-left: 5px;
+  margin-top: 2px;
 }
+

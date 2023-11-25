@@ -39,7 +39,7 @@ const FoodForm: React.FC<FoodFormProps> = ({ onAddFood }) => {
         }}
       >
         <option value="vegetable">野菜</option>
-        <option value="meet">肉</option>
+        <option value="meat">肉</option>
         <option value="other">その他</option>
       </select>
       <input

@@ -1,3 +1,5 @@
+// FoodList.js
+
 import React from "react";
 import { FoodProps } from "../entity/entity";
 import "../styles/FoodList.css";
@@ -15,7 +17,7 @@ const FoodList: React.FC<FoodListProps> = ({
 }) => {
   const groupedFoods: { [key: string]: FoodProps[] } = {
     vegetable: [],
-    meet: [],
+    meat: [],
     other: [],
   };
   if (foods) {
@@ -30,69 +32,35 @@ const FoodList: React.FC<FoodListProps> = ({
 
   return (
     <div className="food-list">
-      {groupedFoods["vegetable"].length > 0 ? (
-        <div>
-          <h3>野菜</h3>
+      {Object.keys(groupedFoods).map((category, index) => (
+        <div key={index} className="food-category">
+          <h4>
+            {category === "vegetable"
+              ? "野菜 🥬"
+              : category === "meat"
+              ? "肉 🥩"
+              : category === "other"
+              ? "その他 🥚"
+              : ""}
+          </h4>
           <ul>
-            {groupedFoods["vegetable"].map((food, index) => (
-              <li key={index}>
-                {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
-                <button onClick={() => onDeleteFood(food.id)}>削除</button>
-                <button onClick={() => onAddIngredient(food.name)}>
-                  この食材を使う
-                </button>
+            {groupedFoods[category].map((food, foodIndex) => (
+              <li key={foodIndex} className="food-item">
+                <div className="food-name">{food.name}</div>
+                <div className="food-amount">
+                  {food.amount} {food.unit === "piece" ? "個" : "g"}
+                </div>
+                <div className="buttons">
+                  <button onClick={() => onDeleteFood(food.id)}>削除</button>
+                  <button onClick={() => onAddIngredient(food.name)}>
+                    食材を使う
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
         </div>
-      ) : (
-        <div>
-          <h3>野菜</h3>
-          <p>食材がありません</p>
-        </div>
-      )}
-      {groupedFoods["meet"].length > 0 ? (
-        <div>
-          <h3>肉</h3>
-          <ul>
-            {groupedFoods["meet"].map((food, index) => (
-              <li key={index}>
-                {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
-                <button onClick={() => onDeleteFood(food.id)}>削除</button>
-                <button onClick={() => onAddIngredient(food.name)}>
-                  この食材を使う
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <div>
-          <h3>肉</h3>
-          <p>食材がありません</p>
-        </div>
-      )}
-      {groupedFoods["other"].length > 0 ? (
-        <div>
-          <h3>その他</h3>
-          <ul>
-            {groupedFoods["other"].map((food, index) => (
-              <li key={index}>
-                {food.name} : {food.amount} {food.unit === "piece" ? "個" : "g"}
-                <button onClick={() => onDeleteFood(food.id)}>削除</button>
-                <button onClick={() => onAddIngredient(food.name)}>
-                  この食材を使う
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <div>
-          <h3>その他</h3>
-          <p>食材がありません</p>
-        </div>
-      )}
+      ))}
     </div>
   );
 };

@@ -30,6 +30,17 @@ func main(){
 		}
 	})
 	r.HandleFunc("/api/foods/{id:[0-9]+}", controllers.DeleteFood).Methods("DELETE")
+
+	r.HandleFunc("api/recipe", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			controllers.GetFoods(w, r)
+		case http.MethodPost:
+			controllers.PostFood(w, r)
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }
 
