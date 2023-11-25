@@ -1,26 +1,6 @@
 /* FoodForm.css */
 
 .food-form {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .food-form select,
-  .food-form input,
-  .food-form button {
-    margin-right: 10px; /* 各要素の右側に余白を追加 */
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .food-form button {
-    background-color: #0066cc;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .food-form button:hover {
-    background-color: #004080;
-  }
-  
+  display: flex;
+  margin-bottom: 20px;
+}

@@ -1,28 +1,68 @@
 /* RecipeSearch.css */
 
 .recipe-search {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 20px;
-  }
-  
-  .recipe-search input,
-  .recipe-search button {
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .recipe-search button {
-    background-color: #0066cc;
-    color: #fff;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .recipe-search button:hover {
-    background-color: #004080;
-  }
-  
+  position: relative;
+  height: 198px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.recipe-form {
+  display: flex;
+  flex-direction: row; /* 追加: 横並びにする */
+  margin-bottom: 10px; /* 適切なマージンを設定 */
+}
+
+.recipe-form .servings {
+  margin-left: 50px;
+}
+
+.recipe-form .clear {
+  margin-left: auto;
+}
+
+.current-ingredients {
+  height: 80px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.current-ingredients .title {
+  font-weight: bold;
+  margin-left: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-left: 10px;
+}
+
+.ingredient-tags {
+  padding-left: 15px;
+}
+
+.ingredient-tag {
+  display: inline-block;
+  margin: 10px 5px;
+  padding: 2.5px 15px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.search {
+  text-align: center;
+}
+
+.search button {
+  display: inline-block;
+  padding: 10px 100px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold; /* ボタンのテキストを太字にする */
+}
+
+.search button:hover {
+  background-color: #45a049; /* ホバー時の色変更 */
+}
