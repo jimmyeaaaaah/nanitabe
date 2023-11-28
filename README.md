@@ -1,3 +1,6 @@
+# nanitabe
+冷蔵庫にある食材を登録し、その食材をもとにクラシル( https://www.kurashiru.com/ )さんのレシピからおすすめのものを表示するWebサイトです。
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
