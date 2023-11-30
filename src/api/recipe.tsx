@@ -1,5 +1,7 @@
 import { RecipeSearchConditionProps, RecipeProps } from "../entity/entity";
 
+const BASE_URL = "https://nanitabe-41823c896034.herokuapp.com";
+
 export const fetchRecipeIDs = async (
   recipeSearchCondition: RecipeSearchConditionProps
 ) => {
@@ -9,7 +11,7 @@ export const fetchRecipeIDs = async (
       keyword: recipeSearchCondition.ingredients.join(","),
     });
     const response = await fetch(
-      `http://localhost:5000/api/recipe/search?${queryParams.toString()}`
+      `${BASE_URL}/api/recipe/search?${queryParams.toString()}`
     );
     const data = await response.json();
     return data.ids;
@@ -22,7 +24,7 @@ export const fetchRecipeIDs = async (
 export const fetchRecipeDetails = async (id: string) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/recipe/details?id=${id}`
+      `${BASE_URL}/api/recipe/details?id=${id}`
     );
     if (!response.ok) {
       throw new Error(

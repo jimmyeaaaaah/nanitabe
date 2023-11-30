@@ -3,7 +3,7 @@ from flask_cors import CORS
 from scraper import get_recipe_ids, get_recipe_info_from_url
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/api/*": {"origins": "https://nanitabe-41823c896034.herokuapp.com"}})
 
 @app.route('/api/recipe/search', methods=['GET'])
 def search_recipe():
@@ -19,4 +19,4 @@ def get_recipe_info():
     return jsonify(recipe_details)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

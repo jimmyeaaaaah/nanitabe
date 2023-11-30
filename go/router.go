@@ -12,7 +12,7 @@ import (
 func main(){
 	r := mux.NewRouter()
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"}, // specify the allowed origin(s)
+		AllowedOrigins: []string{"https://nanitabe-41823c896034.herokuapp.com"}, 
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
 	})
@@ -28,7 +28,7 @@ func main(){
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
-	})
+	}).Methods("GET", "POST")
 	r.HandleFunc("/api/foods/{id:[0-9]+}", controllers.DeleteFood).Methods("DELETE")
 
 	r.HandleFunc("api/recipe", func(w http.ResponseWriter, r *http.Request) {
@@ -40,7 +40,7 @@ func main(){
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
-	})
+	}).Methods("GET", "POST")
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }
 
